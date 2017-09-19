@@ -1,6 +1,59 @@
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 public class Main {
+    static FamilyTree charlie = new FamilyTree("Charlie McCall");
+    static FamilyTree brenda = new FamilyTree("Brenda Sasser");
+    static FamilyTree pops = new FamilyTree("Grampa McCall");
+    static FamilyTree casey = new FamilyTree("Casey McCall");
 
     public static void main(String[] args) {
-	// write your code here
+        buildTree();
+
+        testContains();
+        testGetNumDescendants();
+        //testGetNumDescendantsOf();
+
+        System.out.println("All tests passed!");
     }
+
+    public static void testContains() {
+        assertTrue(pops.contains("Charlie McCall"));
+        assertTrue(pops.contains("Ben Sasser"));
+        assertFalse(pops.contains("McCall"));
+        assertFalse(pops.contains("Lando Calrissian"));
+    }
+
+    public static void testGetNumDescendants () {
+        assertEquals(6, pops.getNumDescendants());
+        assertEquals(2, casey.getNumDescendants());
+        assertEquals(0, charlie.getNumDescendants());
+    }
+
+    public static void testGetNumDescendantsOf () {
+        assertEquals(6, pops.getNumDescendantsOf("Grampa McCall"));
+        assertEquals(2, pops.getNumDescendantsOf("Casey McCall"));
+        assertEquals(0, pops.getNumDescendantsOf("Charlie McCall"));
+        assertEquals(-1, pops.getNumDescendantsOf("Lando Calrissian"));
+
+        charlie.addChild(new FamilyTree("Jonas McCall"));
+
+        assertEquals(7, pops.getNumDescendantsOf("Grampa McCall"));
+        assertEquals(3, pops.getNumDescendantsOf("Casey McCall"));
+        assertEquals(1, pops.getNumDescendantsOf("Charlie McCall"));
+    }
+
+    public static void buildTree () {
+        brenda.addChild(new FamilyTree("Sally Sasser"));
+        brenda.addChild(new FamilyTree("Ben Sasser"));
+
+
+        casey.addChild(charlie);
+        casey.addChild(new FamilyTree("Dan McCall"));
+
+        pops.addChild(casey);
+        pops.addChild(brenda);
+    }
+
 }
