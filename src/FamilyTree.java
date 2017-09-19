@@ -5,6 +5,7 @@ public class FamilyTree {
 
     private String name;
     private List<FamilyTree> children;
+    private int numDescendants;
 
     public FamilyTree (String name) {
         this.name = name;
@@ -44,9 +45,16 @@ public class FamilyTree {
 
     //Returns the number of descendants of this
     public int getNumDescendants () {
-        int numDescendants = 0;
-        for( FamilyTree c: this.getChildren() ) {
-            numDescendants += c.getNumDescendants();
+        System.out.println("Beginning call to getNumDescendants: " + numDescendants);
+        if(this.children.size() != this.numDescendants) {
+            for (FamilyTree child : this.children) {
+                System.out.println("Child detected " + child.getName());
+                numDescendants++;
+                System.out.println("uptick in for loop:" + numDescendants);
+
+                numDescendants += child.getNumDescendants();
+            }
+            return numDescendants;
         }
         return numDescendants;
     }
@@ -57,5 +65,9 @@ public class FamilyTree {
         //This is an extra
 
         return 0;
+    }
+
+    public String getName() {
+        return name;
     }
 }
