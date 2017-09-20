@@ -47,14 +47,12 @@ public class FamilyTree {
     public int getNumDescendants () {
         System.out.println("Start getNumDescendants for: " + this.getName() );
 
-        if(this.children.size() != this.numDescendants) {
-            numDescendants = this.children.size();
-            System.out.println("Children detected");
-            for (FamilyTree child : this.children) {
-                System.out.println("Looking at child: " + child.getName());
-                numDescendants += child.getNumDescendants();
-            }
+        numDescendants = this.children.size();
+        for (FamilyTree child : this.children) {
+            System.out.println("Looking at child: " + child.getName());
+            numDescendants += child.getNumDescendants();
         }
+
         System.out.println("numDescendants is: " + this.numDescendants);
         return numDescendants;
     }
@@ -62,7 +60,13 @@ public class FamilyTree {
     //Returns the number of descendants (including grandchildren, great grandchildren, etc)
     //Of name. If name is NOT in the tree, return -1
     public int getNumDescendantsOf (String name) {
+        System.out.println("Starting search for: " + name);
         FamilyTree rootNode = this.getRootNodeByName(name);
+        // if rootNode.name is an empty string, that means we didn't find it
+        if( rootNode.getName().equals("") ) {
+            return -1;
+        }
+        System.out.println("Found root node for search: " + rootNode.getName());
         return rootNode.getNumDescendants();
     }
 
@@ -74,9 +78,7 @@ public class FamilyTree {
                 if( name.equals(c.name) ){
                     return c;
                 } else {
-                    if (c.contains(name)) {
-                        return c;
-                    }
+                    return c.getRootNodeByName(name);
                 }
             }
         }

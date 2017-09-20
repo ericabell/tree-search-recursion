@@ -13,7 +13,7 @@ public class Main {
 
         testContains();
         testGetNumDescendants();
-        //testGetNumDescendantsOf();
+        testGetNumDescendantsOf();
 
         System.out.println("All tests passed!");
     }
@@ -37,9 +37,14 @@ public class Main {
 
     public static void testGetNumDescendantsOf () {
         assertEquals(6, pops.getNumDescendantsOf("Grampa McCall"));
+        System.out.println("****");
         assertEquals(2, pops.getNumDescendantsOf("Casey McCall"));
+        System.out.println("****");
         assertEquals(0, pops.getNumDescendantsOf("Charlie McCall"));
+        System.out.println("****");
         assertEquals(-1, pops.getNumDescendantsOf("Lando Calrissian"));
+        System.out.println("****");
+
 
         charlie.addChild(new FamilyTree("Jonas McCall"));
 
