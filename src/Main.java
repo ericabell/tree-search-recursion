@@ -27,8 +27,12 @@ public class Main {
 
     public static void testGetNumDescendants () {
         assertEquals(6, pops.getNumDescendants());
+        System.out.println("****");
         assertEquals(2, casey.getNumDescendants());
+        System.out.println("****");
         assertEquals(0, charlie.getNumDescendants());
+        System.out.println("****");
+
     }
 
     public static void testGetNumDescendantsOf () {
